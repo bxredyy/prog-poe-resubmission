@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CyberSecurityBot": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

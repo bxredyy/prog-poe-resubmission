@@ -1,0 +1,52 @@
+<UserControl x:Class="CyberSecurityBot.Views.ChatView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="clr-namespace:CyberSecurityBot.Models"
+             Background="Transparent">
+    <!-- ChatView.xaml: chat bubbles + input box.
+         Reference: Microsoft Docs - WPF UserControl https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/usercontrol -->
+    <Border Style="{StaticResource Card}" Margin="0,12,0,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ScrollViewer x:Name="ChatScroll" VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="ChatList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:ChatMessage}">
+                            <Grid>
+                                <Border Visibility="{Binding IsUser, Converter={StaticResource BoolToVis}}"
+                                        Style="{StaticResource UserBubble}">
+                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Foreground="#0B0E14"/>
+                                </Border>
+                                <Border Visibility="{Binding IsBot, Converter={StaticResource BoolToVis}}"
+                                        Style="{StaticResource BotBubble}">
+                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap"/>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Grid Grid.Row="1" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="InputBox"
+                         Grid.Column="0"
+                         KeyDown="InputBox_KeyDown"
+                         ToolTip="Type a message, or try /help to see what I can do."/>
+                <Button x:Name="SendButton"
+                        Grid.Column="1"
+                        Margin="8,0,0,0"
+                        Content="Send"
+                        MinWidth="92"
+                        Click="SendButton_Click"/>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,30 @@
+name: .NET CI
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+          dotnet-quality: 'preview'
+
+      - name: Restore
+        run: dotnet restore CyberSecurityBot.sln
+
+      - name: Build (Release)
+        run: dotnet build CyberSecurityBot.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test Tests/CyberSecurityBot.Tests.csproj --configuration Release --no-build --verbosity normal

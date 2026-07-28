@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>CyberSecurityBot</RootNamespace>
+    <AssemblyName>CyberSecurityBot</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <NoWarn>CS8632</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Tests\**\*.cs" />
+    <None Remove="Tests\**\*.cs" />
+    <Page Remove="Tests\**\*.xaml" />
+    <ApplicationDefinition Remove="Tests\**\*.xaml" />
+    <Resource Remove="Tests\**\*.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\greeting.wav" />
+    <Resource Include="Assets\ascii-banner.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySqlConnector" Version="2.3.7" />
+  </ItemGroup>
+
+</Project>
